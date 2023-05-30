@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 841067528767887195}
   m_Layer: 0
   m_Name: BoxCollider
-  m_TagString: boxCollider
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -135,7 +135,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c20dabb4692ccc74a9fcccd1c9e328d7, type: 3}
       propertyPath: m_Name
-      value: War Cthulhu Variant
+      value: War Cthulhu PlayerVariant
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c20dabb4692ccc74a9fcccd1c9e328d7, type: 3}
       propertyPath: m_TagString
@@ -157,9 +157,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c20dabb4692ccc74a9fcccd1c9e328d7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5648741138976492665}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c20dabb4692ccc74a9fcccd1c9e328d7, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4797620988238137319}
   m_SourcePrefab: {fileID: 100100000, guid: c20dabb4692ccc74a9fcccd1c9e328d7, type: 3}
 --- !u!4 &7155340855715033757 stripped
 Transform:
@@ -184,8 +181,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spinningVelocity: 30
-  speed: 3500
+  speed: 25
+  bounceSpeed: 2000
   cam: {fileID: 0}
+  ground:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!54 &7217470780593004946
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -236,17 +237,3 @@ CapsuleCollider:
   m_Height: 0.04
   m_Direction: 1
   m_Center: {x: 0, y: 0.02, z: 0}
---- !u!114 &4797620988238137319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7496013106373175335}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65e91137c5ed7bd4abf9b3dc338fb937, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1000
-  cam: {fileID: 0}

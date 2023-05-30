@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7159853239707314450}
   m_Layer: 0
   m_Name: BoxCollider
-  m_TagString: boxCollider
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -147,11 +147,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9fa6f508d927ba0489ef57eb9920a7f5, type: 3}
       propertyPath: m_Name
-      value: Apophis Doomsday Variant
+      value: Apophis Doomsday PlayerVariant
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9fa6f508d927ba0489ef57eb9920a7f5, type: 3}
       propertyPath: m_TagString
-      value: Enemy
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -169,6 +169,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9fa6f508d927ba0489ef57eb9920a7f5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4531207561928701849}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9fa6f508d927ba0489ef57eb9920a7f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7942663633883923460}
   m_SourcePrefab: {fileID: 100100000, guid: 9fa6f508d927ba0489ef57eb9920a7f5, type: 3}
 --- !u!1 &7033804370403790726 stripped
 GameObject:
@@ -238,7 +241,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spinningVelocity: 30
-  speed: 0
+  speed: 3500
+  cam: {fileID: 0}
+--- !u!114 &7942663633883923460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7033804370403790726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65e91137c5ed7bd4abf9b3dc338fb937, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1000
   cam: {fileID: 0}
 --- !u!4 &7698559838891169084 stripped
 Transform:

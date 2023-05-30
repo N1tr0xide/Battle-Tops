@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -9,8 +10,10 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rb;
     [SerializeField] private float spinningVelocity;
     [SerializeField] private float speed;
+    [SerializeField] private float bounceSpeed;
     
     [SerializeField] private Transform cam;
+    [SerializeField] private LayerMask ground;
     
     private float _horizontalInput;
     private float _verticalInput;
@@ -31,11 +34,32 @@ public class PlayerController : MonoBehaviour
         _horizontalInput = Input.GetAxis("Horizontal");
         _verticalInput = Input.GetAxis("Vertical");
         
-        Vector3 camF = cam.forward;
-        Vector3 camR = cam.right;
-        camF.y = 0;
-        camR.y = 0;
+        if (Utilities.IsGrounded(transform.position, ground))
+        {
+            _rb.AddForce((Utilities.GetCamF(cam) * (_verticalInput * speed) + Utilities.GetCamR(cam) * (_horizontalInput * speed)), ForceMode.Acceleration);
+        }
+        
+        Utilities.ResetGame(gameObject);
+    }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        Vector3 targetPos = other.transform.position - gameObject.transform.position;
+        
+        if (other.transform.parent.CompareTag("Enemy"))
+        {
+            //get Rigidbody of parent
+            Transform parent = other.transform.parent;
+            Rigidbody enemyRb = parent.GetComponent<Rigidbody>();
+            Debug.Log(enemyRb);
 
-        _rb.AddForce(camF * (_verticalInput * speed) + camR * (_horizontalInput * speed));
+            parent.GetComponent<EnemyController>().resistanceToOutOfBounds = 1000;
+            
+            //Apply Forces to both objects
+            enemyRb.AddForce((Utilities.GetCamF(cam) + targetPos * bounceSpeed) + (Utilities.GetCamR(cam) + targetPos * bounceSpeed), ForceMode.Impulse);
+            _rb.AddForce((Utilities.GetCamF(cam) - targetPos * (bounceSpeed / 2)) + (Utilities.GetCamR(cam) - targetPos * (bounceSpeed / 2)), ForceMode.Impulse);
+
+            parent.GetComponent<EnemyController>().Invoke(nameof(EnemyController.ResetResistance),2);
+        }
     }
 }
