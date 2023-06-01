@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6084724540151676613}
   - component: {fileID: 2485093209860774611}
   - component: {fileID: 841067528767887195}
+  - component: {fileID: 277299047388022487}
   m_Layer: 0
   m_Name: BoxCollider
   m_TagString: Untagged
@@ -48,12 +49,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.11192101, y: 0.037316542, z: 0.11587864}
-  m_Center: {x: 0.00096049905, y: 0.03893776, z: 0.0011268199}
+  m_Size: {x: 0.11192101, y: 0.04643883, z: 0.11587864}
+  m_Center: {x: 0.00096049905, y: 0.034376614, z: 0.0011268199}
 --- !u!54 &841067528767887195
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -81,6 +82,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 2
+--- !u!114 &277299047388022487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4651313602123372262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 763fab361f02f7a42b019d3be5f2be9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bounceSpeed: 200
+  rb: {fileID: 0}
+  cam: {fileID: 0}
 --- !u!1001 &7261590291428578678
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -103,7 +119,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c20dabb4692ccc74a9fcccd1c9e328d7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0
+      value: 0.1383
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c20dabb4692ccc74a9fcccd1c9e328d7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -182,7 +198,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spinningVelocity: 30
   speed: 25
-  bounceSpeed: 2000
   cam: {fileID: 0}
   ground:
     serializedVersion: 2

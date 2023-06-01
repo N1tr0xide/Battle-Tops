@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 87269832834111896}
   - component: {fileID: 5580576368308248803}
   - component: {fileID: 5582650975614133312}
+  - component: {fileID: 3915398196884571326}
   m_Layer: 0
   m_Name: BoxCollider
-  m_TagString: Untagged
+  m_TagString: EnemyCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81,6 +82,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.094502844, y: 0.04727469, z: 0.11587864}
   m_Center: {x: 0.00016878247, y: 0.039166454, z: 0.0011268199}
+--- !u!114 &3915398196884571326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4480257950954863827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f9924304e569e4897efa1878476f73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bounceSpeed: 100
+  rb: {fileID: 0}
+  cam: {fileID: 0}
 --- !u!1001 &4323640370781412719
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -111,11 +127,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9fa6f508d927ba0489ef57eb9920a7f5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.023
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9fa6f508d927ba0489ef57eb9920a7f5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9fa6f508d927ba0489ef57eb9920a7f5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -147,7 +163,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9fa6f508d927ba0489ef57eb9920a7f5, type: 3}
       propertyPath: m_Name
-      value: Apophis Doomsday Variant
+      value: Apophis Doomsday EnemyVariant
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9fa6f508d927ba0489ef57eb9920a7f5, type: 3}
       propertyPath: m_TagString
@@ -240,7 +256,7 @@ MonoBehaviour:
   speed: 3
   spinningVelocity: 30
   maxDistanceToCenter: 10
-  resistanceToOutOfBounds: 3000
+  resistanceToOutOfBounds: 1000
   fieldCenter: {x: 0, y: -0.5, z: 0}
   player: {fileID: 0}
   cam: {fileID: 0}

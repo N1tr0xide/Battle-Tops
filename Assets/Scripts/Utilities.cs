@@ -53,4 +53,21 @@ public static class Utilities
 #endif
         }
     }
+    
+    public static void HandleCollision(GameObject gameObject,Collider colliderOther, float bounceForce, Transform cameraTransform)
+    {
+        Vector3 bounceDirection = colliderOther.transform.position - gameObject.transform.position;
+        
+        //get Rigidbody of gameObject parent
+        Transform parent = gameObject.transform.parent;
+        Rigidbody rb = parent.GetComponent<Rigidbody>();
+        
+        //get Rigidbody of other.parent
+        Transform otherParent = colliderOther.transform.parent;
+        Rigidbody enemyRb = otherParent.GetComponent<Rigidbody>();
+
+        //Apply Forces to both objects
+        enemyRb.AddForce((GetCamF(cameraTransform) + bounceDirection * bounceForce) + (GetCamR(cameraTransform) + bounceDirection * bounceForce), ForceMode.Impulse);
+        rb.AddForce((GetCamF(cameraTransform) - bounceDirection * (bounceForce / 2)) + (GetCamR(cameraTransform) - bounceDirection * (bounceForce / 2)), ForceMode.Impulse);
+    }
 }

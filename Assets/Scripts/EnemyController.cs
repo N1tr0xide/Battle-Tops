@@ -47,12 +47,5 @@ public class EnemyController : MonoBehaviour
                 _rb.AddForce((Utilities.GetCamF(cam) - targetPlayer * speed) + (Utilities.GetCamR(cam) - targetPlayer * speed).normalized, ForceMode.Acceleration);
             }
         }
-        
-        Utilities.ResetGame(gameObject);
-    }
-
-    public void ResetResistance()
-    {
-        resistanceToOutOfBounds = 3000;
     }
 }
