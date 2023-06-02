@@ -54,7 +54,7 @@ public static class Utilities
         }
     }
     
-    public static void HandleCollision(GameObject gameObject,Collider colliderOther, float bounceForce, Transform cameraTransform)
+    public static void HandleCollision(GameObject gameObject,Collider colliderOther, float impulseMultiplier, Transform cameraTransform)
     {
         Vector3 bounceDirection = colliderOther.transform.position - gameObject.transform.position;
         
@@ -66,8 +66,55 @@ public static class Utilities
         Transform otherParent = colliderOther.transform.parent;
         Rigidbody enemyRb = otherParent.GetComponent<Rigidbody>();
 
-        //Apply Forces to both objects
-        enemyRb.AddForce((GetCamF(cameraTransform) + bounceDirection * bounceForce) + (GetCamR(cameraTransform) + bounceDirection * bounceForce), ForceMode.Impulse);
-        rb.AddForce((GetCamF(cameraTransform) - bounceDirection * (bounceForce / 2)) + (GetCamR(cameraTransform) - bounceDirection * (bounceForce / 2)), ForceMode.Impulse);
+        //Calculate direction and impulse
+        Vector3 forceToEnemy = (GetCamF(cameraTransform) + bounceDirection * rb.velocity.magnitude * impulseMultiplier) + (GetCamR(cameraTransform) + bounceDirection * rb.velocity.magnitude * impulseMultiplier);
+        Vector3 forceToPlayer = (GetCamF(cameraTransform) - bounceDirection * enemyRb.velocity.magnitude * impulseMultiplier) + (GetCamR(cameraTransform) - bounceDirection * enemyRb.velocity.magnitude * impulseMultiplier);
+        
+        //clamp impulse
+        forceToEnemy = ForceClamping(forceToEnemy);
+        forceToPlayer = ForceClamping(forceToPlayer);
+        
+        //Apply force
+        enemyRb.AddForce(forceToEnemy, ForceMode.Impulse);
+        rb.AddForce(forceToPlayer, ForceMode.Impulse);
+    }
+
+    static Vector3 ForceClamping(Vector3 force)
+    {
+        float limit = 900;
+        
+        switch (force.x)
+        {
+            case float n when n > limit: 
+                force.x /= 2; 
+                break;
+            case float n when n < -limit: 
+                force.x /= 2; 
+                break;
+            default:
+                break;
+        }
+
+        switch (force.z)
+        {
+            case float n when n > limit:
+                force.z /= 2;
+                break;
+            case float n when n < -limit:
+                force.z /= 2;
+                break;
+        }
+
+        switch (force.y)
+        {
+            case float n when n > 2:
+                force.y = 2;
+                break;
+            case float n when n < -2:
+                force.y = -2;
+                break;
+        }
+        
+        return force; 
     }
 }

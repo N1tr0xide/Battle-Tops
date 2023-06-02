@@ -94,6 +94,7 @@ public class ObjectPooler : MonoBehaviour
         GameObject obj = GetPooledObject();
         obj.transform.position = new Vector3(Random.Range(-spawnRangeX, spawnRangeX), 0, Random.Range(-spawnRangeZ, spawnRangeZ));
         obj.transform.localScale = new Vector3(1, 1, 1);
+        obj.GetComponent<Rigidbody>().velocity = Vector3.zero;
         obj.SetActive(true);
     }
 }
