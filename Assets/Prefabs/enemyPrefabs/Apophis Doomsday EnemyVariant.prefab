@@ -492,15 +492,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a5af1c2b7f7dae44aa24dc21c64903a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  cam: {fileID: 0}
+  speed: 5
+  spinningVelocity: 30
+  canMove: 1
   ground:
     serializedVersion: 2
     m_Bits: 8
-  speed: 3
-  spinningVelocity: 30
-  maxDistanceToCenter: 10
   resistanceToOutOfBounds: 200
+  maxDistanceToCenter: 10
   fieldCenter: {x: 0, y: -0.5, z: 0}
   velocity: {fileID: 3716006219397792581}
   canvas: {fileID: 6818573756294683729}

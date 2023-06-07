@@ -94,8 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 763fab361f02f7a42b019d3be5f2be9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  impulseMultiplier: 40
-  bounceDelay: 0.2
+  impulseMultiplier: 100
   cam: {fileID: 0}
 --- !u!1 &6864458990193252897
 GameObject:
@@ -438,11 +437,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spinningVelocity: 30
   speed: 30
+  canMove: 1
   cam: {fileID: 0}
   ground:
     serializedVersion: 2
     m_Bits: 8
-  canMove: 1
   velocity: {fileID: 7352954609734682550}
   canvas: {fileID: 6894857306929935953}
 --- !u!54 &7217470780593004946
@@ -453,7 +452,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7496013106373175335}
   serializedVersion: 4
-  m_Mass: 500
+  m_Mass: 200
   m_Drag: 0
   m_AngularDrag: 0.01
   m_CenterOfMass: {x: 0, y: 0.04, z: 0}

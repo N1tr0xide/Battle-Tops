@@ -68,53 +68,11 @@ public static class Utilities
 
         //Calculate direction and impulse
         Vector3 forceToEnemy = (GetCamF(cameraTransform) + bounceDirection * rb.velocity.magnitude * impulseMultiplier) + (GetCamR(cameraTransform) + bounceDirection * rb.velocity.magnitude * impulseMultiplier);
+        Debug.Log(rb.velocity.magnitude);
         Vector3 forceToPlayer = (GetCamF(cameraTransform) - bounceDirection * enemyRb.velocity.magnitude * impulseMultiplier) + (GetCamR(cameraTransform) - bounceDirection * enemyRb.velocity.magnitude * impulseMultiplier);
-        
-        //clamp impulse
-        forceToEnemy = ForceClamping(forceToEnemy);
-        forceToPlayer = ForceClamping(forceToPlayer);
-        
+
         //Apply force
         enemyRb.AddForce(forceToEnemy, ForceMode.Impulse);
         rb.AddForce(forceToPlayer, ForceMode.Impulse);
-    }
-
-    static Vector3 ForceClamping(Vector3 force)
-    {
-        float limit = 900;
-        
-        switch (force.x)
-        {
-            case float n when n > limit: 
-                force.x /= 2; 
-                break;
-            case float n when n < -limit: 
-                force.x /= 2; 
-                break;
-            default:
-                break;
-        }
-
-        switch (force.z)
-        {
-            case float n when n > limit:
-                force.z /= 2;
-                break;
-            case float n when n < -limit:
-                force.z /= 2;
-                break;
-        }
-
-        switch (force.y)
-        {
-            case float n when n > 2:
-                force.y = 2;
-                break;
-            case float n when n < -2:
-                force.y = -2;
-                break;
-        }
-        
-        return force; 
     }
 }
