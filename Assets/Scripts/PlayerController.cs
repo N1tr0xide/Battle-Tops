@@ -11,11 +11,10 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rb;
     [SerializeField] private float spinningVelocity;
     [SerializeField] private float speed;
-
-    [SerializeField] private Transform cam;
-    [SerializeField] private LayerMask ground;
-
     [SerializeField] private bool canMove = true;
+    
+    private Transform _cam;
+    [SerializeField] private LayerMask ground;
     
     private float _horizontalInput;
     private float _verticalInput;
@@ -27,7 +26,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cam = GameObject.Find("Main Camera").GetComponent<Transform>();
+        _cam = GameObject.Find("Main Camera").GetComponent<Transform>();
         _rb = gameObject.GetComponent<Rigidbody>();
         _rb.maxAngularVelocity = spinningVelocity;
         _rb.maxLinearVelocity = 15;
@@ -43,7 +42,7 @@ public class PlayerController : MonoBehaviour
         
         if (Utilities.IsGrounded(transform.position, ground) && canMove)
         {
-            _rb.AddForce((Utilities.GetCamF(cam) * (_verticalInput * speed) + Utilities.GetCamR(cam) * (_horizontalInput * speed)), ForceMode.Acceleration);
+            _rb.AddForce((Utilities.GetCamF(_cam) * (_verticalInput * speed) + Utilities.GetCamR(_cam) * (_horizontalInput * speed)), ForceMode.Acceleration);
         }
         
         Utilities.ResetGame(gameObject);
@@ -52,14 +51,10 @@ public class PlayerController : MonoBehaviour
     private void LateUpdate()
     {
         velocity.text = ((int)_rb.velocity.magnitude).ToString();
-        Quaternion rotation = cam.transform.rotation;
+        Quaternion rotation = _cam.transform.rotation;
         canvas.transform.LookAt(transform.position + rotation * Vector3.forward, rotation * Vector3.up);
     }
 
-    public void CanMove()
-    {
-        canMove = true;
-    }
     public void CanMove(bool state)
     {
         canMove = state;

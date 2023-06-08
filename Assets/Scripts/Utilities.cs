@@ -46,75 +46,11 @@ public static class Utilities
     /// <param name="gameObject"></param>
     public static void ResetGame(GameObject gameObject)
     {
-        if (gameObject.transform.position.y < -4f)
+        if (gameObject.transform.position.y < -10f)
         {
 #if UNITY_EDITOR
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 #endif
         }
-    }
-    
-    public static void HandleCollision(GameObject gameObject,Collider colliderOther, float impulseMultiplier, Transform cameraTransform)
-    {
-        Vector3 bounceDirection = colliderOther.transform.position - gameObject.transform.position;
-        
-        //get Rigidbody of gameObject parent
-        Transform parent = gameObject.transform.parent;
-        Rigidbody rb = parent.GetComponent<Rigidbody>();
-        
-        //get Rigidbody of other.parent
-        Transform otherParent = colliderOther.transform.parent;
-        Rigidbody enemyRb = otherParent.GetComponent<Rigidbody>();
-
-        //Calculate direction and impulse
-        Vector3 forceToEnemy = (GetCamF(cameraTransform) + bounceDirection * rb.velocity.magnitude * impulseMultiplier) + (GetCamR(cameraTransform) + bounceDirection * rb.velocity.magnitude * impulseMultiplier);
-        Vector3 forceToPlayer = (GetCamF(cameraTransform) - bounceDirection * enemyRb.velocity.magnitude * impulseMultiplier) + (GetCamR(cameraTransform) - bounceDirection * enemyRb.velocity.magnitude * impulseMultiplier);
-        
-        //clamp impulse
-        forceToEnemy = ForceClamping(forceToEnemy);
-        forceToPlayer = ForceClamping(forceToPlayer);
-        
-        //Apply force
-        enemyRb.AddForce(forceToEnemy, ForceMode.Impulse);
-        rb.AddForce(forceToPlayer, ForceMode.Impulse);
-    }
-
-    static Vector3 ForceClamping(Vector3 force)
-    {
-        float limit = 900;
-        
-        switch (force.x)
-        {
-            case float n when n > limit: 
-                force.x /= 2; 
-                break;
-            case float n when n < -limit: 
-                force.x /= 2; 
-                break;
-            default:
-                break;
-        }
-
-        switch (force.z)
-        {
-            case float n when n > limit:
-                force.z /= 2;
-                break;
-            case float n when n < -limit:
-                force.z /= 2;
-                break;
-        }
-
-        switch (force.y)
-        {
-            case float n when n > 2:
-                force.y = 2;
-                break;
-            case float n when n < -2:
-                force.y = -2;
-                break;
-        }
-        
-        return force; 
     }
 }
