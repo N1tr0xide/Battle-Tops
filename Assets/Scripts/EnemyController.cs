@@ -15,7 +15,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private bool canMove = true;
     [SerializeField]private LayerMask ground;
 
-    public float resistanceToOutOfBounds = 3000;
+    public float resistanceToOutOfBounds = 200;
     public float maxDistanceToCenter = 9;
     public Vector3 fieldCenter = new Vector3(0, -0.5f, 0);
     
@@ -38,7 +38,7 @@ public class EnemyController : MonoBehaviour
         _rb.angularVelocity = new Vector3(.5f,_spinningVelocity,0);
         Movement();
         
-        if (transform.position.y < -4f)
+        if (transform.position.y < -10f)
         {
             gameObject.SetActive(false);
         }
@@ -54,7 +54,6 @@ public class EnemyController : MonoBehaviour
     void Movement()
     {
         Vector3 enemyPos = transform.position;
-        
         Vector3 targetPlayer = enemyPos - _player.transform.position;
         Vector3 targetFieldCenter = enemyPos - fieldCenter;
         float distanceToFieldCenter = Vector3.Distance(enemyPos, fieldCenter);

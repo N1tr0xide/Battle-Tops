@@ -46,33 +46,11 @@ public static class Utilities
     /// <param name="gameObject"></param>
     public static void ResetGame(GameObject gameObject)
     {
-        if (gameObject.transform.position.y < -4f)
+        if (gameObject.transform.position.y < -10f)
         {
 #if UNITY_EDITOR
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 #endif
         }
-    }
-    
-    public static void HandleCollision(GameObject gameObject,Collider colliderOther, float impulseMultiplier, Transform cameraTransform)
-    {
-        Vector3 bounceDirection = colliderOther.transform.position - gameObject.transform.position;
-        
-        //get Rigidbody of gameObject parent
-        Transform parent = gameObject.transform.parent;
-        Rigidbody rb = parent.GetComponent<Rigidbody>();
-        
-        //get Rigidbody of other.parent
-        Transform otherParent = colliderOther.transform.parent;
-        Rigidbody enemyRb = otherParent.GetComponent<Rigidbody>();
-
-        //Calculate direction and impulse
-        Vector3 forceToEnemy = (GetCamF(cameraTransform) + bounceDirection * rb.velocity.magnitude * impulseMultiplier) + (GetCamR(cameraTransform) + bounceDirection * rb.velocity.magnitude * impulseMultiplier);
-        Debug.Log(rb.velocity.magnitude);
-        Vector3 forceToPlayer = (GetCamF(cameraTransform) - bounceDirection * enemyRb.velocity.magnitude * impulseMultiplier) + (GetCamR(cameraTransform) - bounceDirection * enemyRb.velocity.magnitude * impulseMultiplier);
-
-        //Apply force
-        enemyRb.AddForce(forceToEnemy, ForceMode.Impulse);
-        rb.AddForce(forceToPlayer, ForceMode.Impulse);
     }
 }

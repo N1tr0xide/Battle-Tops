@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -11,6 +12,7 @@ public class ObjectPooler : MonoBehaviour
     public List<GameObject> pooledObjects;
     public GameObject[] objectsToPool;
     public int amountToPool;
+    private int _amountToActivate;
 
     [SerializeField] private float spawnRangeX = 9f;
     [SerializeField] private float spawnRangeZ = 9f;
@@ -31,17 +33,21 @@ public class ObjectPooler : MonoBehaviour
             obj.SetActive(false);
             pooledObjects.Add(obj);
         }
+        
+        _amountToActivate++;
+        SetObjectsActive(_amountToActivate);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if(CheckActiveObjects())
         {
-            SetObjectsActive(3);
+            _amountToActivate++;
+            SetObjectsActive(_amountToActivate);
         }
     }
 
-    public GameObject GetPooledObject()
+    private GameObject GetPooledObject()
     {
         // For as many objects as are in the pooledObjects list
         for (int i = 0; i < pooledObjects.Count; i++)
@@ -57,21 +63,26 @@ public class ObjectPooler : MonoBehaviour
     }
 
     /// <summary>
-    /// set all inactive objects active
+    /// if any object is active returns false, otherwise returns true
     /// </summary>
-    void SetObjectsActive()
+    private bool CheckActiveObjects()
     {
-        while (GetPooledObject() != null)
+        for (int i = 0; i < pooledObjects.Count; i++)
         {
-            ActivateObject();
+            if (pooledObjects[i].activeInHierarchy)
+            {
+                return false;
+            }
         }
+        
+        return true;
     }
     
     /// <summary>
     /// set a number of inactive objects active
     /// </summary>
     /// <param name="amount"></param>
-    void SetObjectsActive(int amount)
+    private void SetObjectsActive(int amount)
     {
         for (int i = 0; i < amount; i++)
         {
@@ -81,20 +92,22 @@ public class ObjectPooler : MonoBehaviour
             }
             else
             {
-                Debug.Log("There is no inactive object to set Active");
+                Debug.Log("There is no more inactive object to set Active");
             }
         }
     }
-
+    
     /// <summary>
     /// manage activation of an inactive object
     /// </summary>
-    void ActivateObject()
+    private void ActivateObject()
     {
         GameObject obj = GetPooledObject();
+        obj.SetActive(true);
         obj.transform.position = new Vector3(Random.Range(-spawnRangeX, spawnRangeX), 0, Random.Range(-spawnRangeZ, spawnRangeZ));
         obj.transform.localScale = new Vector3(1, 1, 1);
-        obj.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        obj.SetActive(true);
+        Rigidbody objRb = obj.GetComponent<Rigidbody>();
+        objRb.velocity = Vector3.zero;
+        objRb.maxLinearVelocity = 15;
     }
 }
